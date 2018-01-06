@@ -51,6 +51,12 @@
 # endif
 #endif
 #include <errno.h>
+#ifdef __ANDROID__
+#include <sys/sysconf.h>
+#ifndef PAGE_SIZE
+#define PAGE_SIZE sysconf(_SC_PAGE_SIZE)
+#endif
+#endif
 #include "thread-stacksize.h"
 
 #ifndef HAVE_STRTOULL
