@@ -960,6 +960,9 @@ aarch64*-*-linux*)
 	aarch64_be-*)
 		tm_defines="${tm_defines} TARGET_BIG_ENDIAN_DEFAULT=1"
 		;;
+	aarch64*-*-linux-android*)
+		tm_file="${tm_file} aarch64/aarch64-linux-android.h"
+		;;
 	esac
 	aarch64_multilibs="${with_multilib_list}"
 	if test "$aarch64_multilibs" = "default"; then
@@ -2074,6 +2077,17 @@ mips*-*-linux*)				# Linux MIPS, either endian.
 	tm_file="dbxelf.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h ${tm_file} mips/gnu-user.h mips/linux.h mips/linux-common.h"
 	extra_options="${extra_options} linux-android.opt"
 	case ${target} in
+		mips64*android*)
+			default_mips_arch=mips64r6
+			default_mips_abi=64
+			tm_file="${tm_file} mips/android.h"
+			tmake_file="${tmake_file} mips/t-linux-android64"
+			;;
+		mips*android*)
+			default_mips_arch=mips32
+			tm_file="${tm_file} mips/android.h"
+			tmake_file="$tmake_file mips/t-linux-android"
+			;;
 		mipsisa32r6*)
 			default_mips_arch=mips32r6
 			;;
